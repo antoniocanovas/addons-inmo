@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inmopolt_res_company_inh_form" model="ir.ui.view">
+        <field name="name">inmopolt.res.company.inh.form</field>
+        <field name="model">res.company</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="Inmopolt" name="Inmopolt">
+                    <group>
+                        <field name="pnt_journal_inquilino_id" domain="[('type','=','sale')]"/>
+                        <field name="pnt_journal_propietario_id" domain="[('type','=','purchase')]"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

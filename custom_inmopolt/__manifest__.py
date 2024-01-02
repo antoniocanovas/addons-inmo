@@ -14,6 +14,7 @@
     ],
     'data': [
         'views/sale_order_views.xml',
+        'views/res_company_views.xml',
     ],
     'installable': True,
     'application': False,

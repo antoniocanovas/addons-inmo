@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="crear_recibos_inquilinos" model="ir.actions.server">
+            <field name="name">=> Crear recibos de inquilinos que no tiene facturas borrador</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">
+model.crear_recibos_de_inquilinos()
+            </field>
+        </record>
+
+    </data>
+
+</odoo>

@@ -15,19 +15,19 @@ class ProductProduct(models.Model):
 
     def crear_recibos_de_inquilinos(self):
         for record in self:
-            din = self.env.company.pnt_journal_inquilino_id
+            diario_inquilinos = self.env.company.pnt_journal_inquilino_id
+            nothing_to_do = False
             subscriptions = self.env['sale.order'].search([
-                ('sale_order_template_id.journal_id','=', din.id),
+                ('sale_order_template_id.journal_id','=', diario_inquilinos.id),
                 ('state','in',['sale']),
                 ('is_subscription','=',True),
                 ('order_line','!=',False)
             ])
             for sub in subscriptions:
-                nothing_to_do = False
                 aml = env['account.move.line'].search([('subscription_id', '=', sub.id)])
                 for li in aml:
                     if li.parent_state == 'draft':
                         nothing_to_do = True
-                if nothing_to_do == False:
-                    sub._cron_recurring_create_invoice()
+            if nothing_to_do == False:
+                sub._cron_recurring_create_invoice()
 

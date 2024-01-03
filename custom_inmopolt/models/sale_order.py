@@ -29,5 +29,5 @@ class ProductProduct(models.Model):
                     if li.parent_state == 'draft':
                         nothing_to_do = True
             if nothing_to_do == False:
-                sub._cron_recurring_create_invoice()
+                sub._create_recurring_invoice()
 

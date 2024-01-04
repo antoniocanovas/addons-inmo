@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="inmopolt_create_subcription_invoices_menu" model="ir.ui.menu">
-        <field name="action" ref="inmopolt_create_subcription_invoices_as"/>
+    <record id="inmopolt_create_subscription_invoices_menu" model="ir.ui.menu">
+        <field name="action" ref="inmopolt_create_subscription_invoices_as"/>
         <field name="active" eval="True"/>
         <field name="name">Crear recibos</field>
         <field name="parent_id" ref="sale_subscription.menu_sale_subscription_config"/>

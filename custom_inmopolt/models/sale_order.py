@@ -29,7 +29,6 @@ class ProductProduct(models.Model):
             ('order_line', '!=', False),
             ('amount_untaxed', '>', 0)
         ])
-        # raise UserError(subscriptions)
 
         # Crear facturas de las suscripciones que no tienen facturas en "borrador" (el estándar corta si existen ya que no puede calcular el periodo):
         for sub in subscriptions:

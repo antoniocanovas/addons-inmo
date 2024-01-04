@@ -7,7 +7,7 @@
             <field name="model_id" ref="model_sale_order"/>
             <field name="state">code</field>
             <field name="code">
-model.crear_recibos_de_inquilinos()
+model.inmopolt_create_subscription_invoices()
             </field>
         </record>
 

@@ -13,7 +13,9 @@ class ProductProduct(models.Model):
             result.append((order.id, name))
         return result
 
-    def crear_confirmar_recibos_de_inquilinos_y_otros_en_borrador(self):
+
+    def inmopolt_create_subscription_invoices(self):
+        # Crear y confirmar recibos de inquilinos hasta fecha hoy y los de otros diarios dejar en borrador:
         diarioinquilinos = self.env.company.pnt_journal_inquilino_id
 
         # Suscripciones con líneas, en vigor, con renovación de hoy o anterior de cualquier diario:

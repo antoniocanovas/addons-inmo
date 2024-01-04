@@ -9,7 +9,7 @@
             record.inmopolt_auto_reconcile_paid_invoices()
         </field>
         <field name="trigger">on_write</field>
-        <field name="trigger_field_ids" eval="[(6,0, [ref('account.field_account_move__payment_state')]"/>
+        <field name="trigger_field_ids" eval="[(6,0, [ref('account.field_account_move__payment_state')])]"/>
         <field name="filter_pre_domain"></field>
         <field name="filter_domain"></field>
         <field name="active" eval="True"/>

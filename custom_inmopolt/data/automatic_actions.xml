@@ -15,4 +15,16 @@
         <field name="active" eval="True"/>
     </record>
 
+    <!-- Acción planificada para generar recibos INMOPOLT: -->
+    <record model="ir.cron" id="inmopolt_create_subscription_invoices_cron">
+        <field name="name">=> Subscripciones: Generar recibos (confirmados) y facturas recurrentes (borrador)</field>
+        <field name="model_id" ref="sale_subscription.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">model.inmopolt_create_subscription_invoices()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="nextcall" eval="(datetime.now() + timedelta(minutes=7)).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+
 </odoo>

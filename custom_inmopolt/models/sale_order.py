@@ -1,5 +1,5 @@
 from odoo import _, api, fields, models
-
+from datetime import datetime
 
 class ProductProduct(models.Model):
     _inherit = 'sale.order'
@@ -13,21 +13,31 @@ class ProductProduct(models.Model):
             result.append((order.id, name))
         return result
 
-    def crear_recibos_de_inquilinos(self):
-        for record in self:
-            diario_inquilinos = self.env.company.pnt_journal_inquilino_id
-            nothing_to_do = False
-            subscriptions = self.env['sale.order'].search([
-                ('sale_order_template_id.journal_id','=', diario_inquilinos.id),
-                ('state','in',['sale']),
-                ('is_subscription','=',True),
-                ('order_line','!=',False)
-            ])
-            for sub in subscriptions:
-                aml = env['account.move.line'].search([('subscription_id', '=', sub.id)])
-                for li in aml:
-                    if li.parent_state == 'draft':
-                        nothing_to_do = True
-            if nothing_to_do == False:
-                sub._create_recurring_invoice()
+    def crear_confirmar_recibos_de_inquilinos_y_otros_en_borrador(self):
+        diarioinquilinos = self.env.company.pnt_journal_inquilino_id
 
+        # Suscripciones con líneas, en vigor, con renovación de hoy o anterior de cualquier diario:
+        subscriptions = self.env['sale.order'].search([
+            ('is_subscription', '=', True),
+            #  ('sale_order_template_id.journal_id','=',diarioinquilinos.id),
+            ('state', '=', 'sale'),
+            ('stage_category', '=', 'progress'),
+            ('next_invoice_date', '!=', False),
+            ('next_invoice_date', '<', datetime.now()),
+            ('order_line', '!=', False),
+            ('amount_untaxed', '>', 0)
+        ])
+        # raise UserError(subscriptions)
+
+        # Crear facturas de las suscripciones que no tienen facturas en "borrador" (el estándar corta si existen ya que no puede calcular el periodo):
+        for sub in subscriptions:
+            aml_draft = self.env['account.move.line'].search(
+                [('subscription_id', '=', sub.id), ('parent_state', '=', 'draft')])
+            if not (aml_draft.ids):
+                sub.action_invoice_subscription()
+
+        # Confirmar las facturas de inquilinos:
+        invoices = self.env['account.move'].search(
+            [('state', '=', 'draft'), ('journal_id', '=', diarioinquilinos.id), ('move_type', '=', 'out_invoice')])
+        for factura in invoices:
+            factura.action_post()

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- MENUS: -->
+    <record id="inmopolt_create_subcription_invoices_menu" model="ir.ui.menu">
+        <field name="action" ref="inmopolt_create_subcription_invoices_as"/>
+        <field name="active" eval="True"/>
+        <field name="name">Crear recibos (confirmados) de inquilinos y facturas de clientes (borrador)</field>
+        <field name="parent_id" ref="sale_subscription.menu_sale_subscription_config"/>
+        <field name="sequence">100</field>
+        <field name="web_icon" eval="False"/>
+    </record>
+
+</odoo>

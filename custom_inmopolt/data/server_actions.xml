@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <record id="crear_recibos_inquilinos" model="ir.actions.server">
+        <record id="inmopolt_create_subcription_invoices_as" model="ir.actions.server">
             <field name="name">=> Crear recibos de inquilinos que no tienen facturas borrador</field>
             <field name="model_id" ref="model_sale_order"/>
             <field name="state">code</field>

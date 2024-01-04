@@ -12,6 +12,7 @@
     'depends': [
         'sale_management',
         'sale_subscription',
+        'account',
     ],
     'data': [
         'views/sale_order_views.xml',

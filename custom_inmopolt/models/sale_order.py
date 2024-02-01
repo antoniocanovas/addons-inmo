@@ -1,5 +1,5 @@
 from odoo import _, api, fields, models
-from datetime import datetime
+from datetime import date
 
 class ProductProduct(models.Model):
     _inherit = 'sale.order'
@@ -25,7 +25,7 @@ class ProductProduct(models.Model):
             ('state', '=', 'sale'),
             ('stage_category', '=', 'progress'),
             ('next_invoice_date', '!=', False),
-            ('next_invoice_date', '<', datetime.now()),
+            ('next_invoice_date', '<=', date.today()),
             ('order_line', '!=', False),
             ('amount_untaxed', '>', 0)
         ])

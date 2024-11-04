@@ -35,7 +35,11 @@ class ProductProduct(models.Model):
             aml_draft = self.env['account.move.line'].search(
                 [('subscription_id', '=', sub.id), ('parent_state', '=', 'draft')])
             if not (aml_draft.ids):
-                sub.action_invoice_subscription()
+                # Para resolver incidencia 04/11/24 de un contrato con fecha de fin pero en vigor, corta el proceso:
+                if not (sub.end_date) or (sub.end_date >= sub.next_invoice_date):
+                    sub.action_invoice_subscription()
+
+            sub.action_invoice_subscription()
 
         # Confirmar las facturas de inquilinos:
         invoices = self.env['account.move'].search(

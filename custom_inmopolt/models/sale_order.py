@@ -39,8 +39,6 @@ class ProductProduct(models.Model):
                 if not (sub.end_date) or (sub.end_date >= sub.next_invoice_date):
                     sub.action_invoice_subscription()
 
-            sub.action_invoice_subscription()
-
         # Confirmar las facturas de inquilinos:
         invoices = self.env['account.move'].search(
             [('state', '=', 'draft'), ('journal_id', '=', diarioinquilinos.id), ('move_type', '=', 'out_invoice')])

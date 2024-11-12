@@ -27,7 +27,7 @@ class ProductProduct(models.Model):
             ('next_invoice_date', '!=', False),
             ('next_invoice_date', '<=', date.today()),
             ('order_line', '!=', False),
-            ('amount_untaxed', '>', 0)
+            ('amount_untaxed', '>', 0),
         ])
 
         # Crear facturas de las suscripciones que no tienen facturas en "borrador" (el estándar corta si existen ya que no puede calcular el periodo):
@@ -43,4 +43,5 @@ class ProductProduct(models.Model):
         invoices = self.env['account.move'].search(
             [('state', '=', 'draft'), ('journal_id', '=', diarioinquilinos.id), ('move_type', '=', 'out_invoice')])
         for factura in invoices:
-            factura.action_post()
+            if factura.invoice_line_ids.ids:
+                factura.action_post()

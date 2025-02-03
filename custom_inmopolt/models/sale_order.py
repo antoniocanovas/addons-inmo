@@ -41,7 +41,7 @@ class ProductProduct(models.Model):
 
         # Confirmar las facturas de inquilinos:
         invoices = self.env['account.move'].search(
-            [('state', '=', 'draft'), ('journal_id', '=', diarioinquilinos.id), ('move_type', '=', 'out_invoice')])
+            [('partner_id','!=',False), ('state', '=', 'draft'), ('journal_id', '=', diarioinquilinos.id), ('move_type', '=', 'out_invoice')])
         for factura in invoices:
             if factura.invoice_line_ids.ids:
                 factura.action_post()

@@ -5,13 +5,13 @@
         <record id="inmopolt_auto_reconcile_paid_invoices_aa" model="base.automation">
             <field name="name">=> Autovalidación de facturas pagadas (sin tener que reconciliar)</field>
             <field name="model_id" ref="account.model_account_move"/>
-            <field name="server_action_id" ref="custom_inmopolt.as_inmopolt_auto_reconcile_paid_invoices_aa"/>
+            <field name="server_action_id" ref="inmopolt_auto_reconcile_paid_invoices_as"/>
             <field name="trigger">on_write</field>
             <field name="trigger_field_ids" eval="[(6,0, [ref('account.field_account_move__payment_state')])]"/>
             <field name="active" eval="True"/>
         </record>
 
-        <record id="as_inmopolt_auto_reconcile_paid_invoices_aa" model="ir.actions.server">
+        <record id="inmopolt_auto_reconcile_paid_invoices_as" model="ir.actions.server">
             <field name="name">=> AS Autovalidación de facturas pagadas (sin tener que reconciliar)</field>
             <field name="model_id" ref="account.model_account_move"/>
             <field name="state">code</field>

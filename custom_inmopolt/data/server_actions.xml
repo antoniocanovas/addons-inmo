@@ -10,7 +10,6 @@
 model.inmopolt_create_subscription_invoices()
             </field>
         </record>
-
     </data>
 
 </odoo>

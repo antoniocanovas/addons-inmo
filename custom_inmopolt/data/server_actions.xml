@@ -4,7 +4,7 @@
 
         <record id="inmopolt_create_subscription_invoices_as" model="ir.actions.server">
             <field name="name">=> Crear recibos de inquilinos que no tienen facturas borrador</field>
-            <field name="model_id" ref="model_sale_order"/>
+            <field name="model_id" ref="sale.model_sale_order"/>
             <field name="state">code</field>
             <field name="code">
 model.inmopolt_create_subscription_invoices()
@@ -14,6 +14,7 @@ model.inmopolt_create_subscription_invoices()
         <record id="inmopolt_auto_reconcile_paid_invoices_as" model="ir.actions.server">
             <field name="name">=> AS Autovalidación de facturas pagadas (sin tener que reconciliar)</field>
             <field name="model_id" ref="account.model_account_move"/>
+            <field name="base_automation_id" ref="inmopolt_auto_reconcile_paid_invoices_aa"/>
             <field name="state">code</field>
             <field name="code">
 record.inmopolt_auto_reconcile_paid_invoices()

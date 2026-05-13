@@ -11,14 +11,13 @@
     'author': 'Serincloud',
     'depends': [
         'sale_management',
-        'sale_subscription',
         'account',
     ],
     'data': [
         'views/sale_order_views.xml',
         'views/res_company_views.xml',
-        'data/server_actions.xml',
         'data/automatic_actions.xml',
+        'data/server_actions.xml',
         'views/menu_views.xml',
     ],
     'installable': True,

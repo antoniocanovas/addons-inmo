@@ -10,6 +10,16 @@
 model.inmopolt_create_subscription_invoices()
             </field>
         </record>
+
+        <record id="inmopolt_auto_reconcile_paid_invoices_as" model="ir.actions.server">
+            <field name="name">=> AS Autovalidación de facturas pagadas (sin tener que reconciliar)</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">
+record.inmopolt_auto_reconcile_paid_invoices()
+            </field>
+        </record>
+
     </data>
 
 </odoo>

@@ -4,18 +4,28 @@ from datetime import date
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
-    _rec_name = 'display_name'  # Esto le dice a Odoo que use display_name por defecto
 
-    @api.depends('client_order_ref')
-    def _compute_display_name(self):
-        # Primero ejecutamos el súper para mantener el comportamiento estándar de Odoo
-        super()._compute_display_name()
-
+    @api.onchange('client_order_ref')
+    def _onchange_client_order_ref(self):
+        """
+        Cada vez que el usuario cambie la referencia en la pantalla,
+        el nombre se actualizará automáticamente en tiempo real.
+        """
         for order in self:
-            # Si el pedido tiene referencia de cliente, modificamos su display_name
-            if order.client_order_ref:
-                order.display_name = f"{order.name} - {order.client_order_ref}"
+            if not order.name:
+                continue
 
+            # 1. Limpiamos cualquier referencia vieja que ya estuviera en el nombre
+            nombre_base = order.name
+            if " - " in nombre_base:
+                # Separamos por el primer " - " para recuperar el código original (ej: SO001)
+                nombre_base = nombre_base.split(" - ", 1)[0]
+
+            # 2. Si hay una nueva referencia, la pegamos. Si la borraron, dejamos el nombre base limpio.
+            if order.client_order_ref:
+                order.name = f"{nombre_base} - {order.client_order_ref}"
+            else:
+                order.name = nombre_base
 
     def inmopolt_create_subscription_invoices(self):
         # Crear y confirmar recibos de inquilinos hasta fecha hoy y los de otros diarios dejar en borrador:

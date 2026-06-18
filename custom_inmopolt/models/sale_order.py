@@ -4,6 +4,7 @@ from datetime import date
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+    _rec_name = 'display_name'  # Esto le dice a Odoo que use display_name por defecto
 
     @api.depends('client_order_ref')
     def _compute_display_name(self):

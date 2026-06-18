@@ -1,17 +1,19 @@
 from odoo import _, api, fields, models
 from datetime import date
 
-class ProductProduct(models.Model):
+
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    def name_get(self):
-        result = []
+    @api.depends('client_order_ref')
+    def _compute_display_name(self):
+        # Primero ejecutamos el súper para mantener el comportamiento estándar de Odoo
+        super()._compute_display_name()
+
         for order in self:
-            name = order.name
+            # Si el pedido tiene referencia de cliente, modificamos su display_name
             if order.client_order_ref:
-                name += ' - ' + order.client_order_ref
-            result.append((order.id, name))
-        return result
+                order.display_name = f"{order.name} - {order.client_order_ref}"
 
 
     def inmopolt_create_subscription_invoices(self):

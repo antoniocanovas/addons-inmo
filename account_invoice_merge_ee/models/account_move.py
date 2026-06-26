@@ -14,6 +14,6 @@ class AccountMove(models.Model):
             "subscription_start_date",
             "subscription_end_date",
         )
-        fields.extend(subscription_fields)
-
+        aml_fields = self.env["account.move.line"]._fields
+        fields.extend(f for f in subscription_fields if f in aml_fields)
         return fields

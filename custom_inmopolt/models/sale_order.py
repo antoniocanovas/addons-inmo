@@ -36,7 +36,7 @@ class SaleOrder(models.Model):
             ('is_subscription', '=', True),
             #  ('sale_order_template_id.journal_id','=',diarioinquilinos.id),
             ('state', '=', 'sale'),
-            ('stage_category', '=', 'progress'),
+            ('subscription_state', '=', '3_progress'),
             ('next_invoice_date', '!=', False),
             ('next_invoice_date', '<=', date.today()),
             ('order_line', '!=', False),

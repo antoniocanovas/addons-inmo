@@ -50,7 +50,7 @@ class SaleOrder(models.Model):
             if not (aml_draft.ids):
                 # Para resolver incidencia 04/11/24 de un contrato con fecha de fin pero en vigor, corta el proceso:
                 if not (sub.end_date) or (sub.end_date >= sub.next_invoice_date):
-                    sub.action_invoice_subscription()
+                    sub._create_recurring_invoice()
 
         # Confirmar las facturas de inquilinos:
         invoices = self.env['account.move'].search(

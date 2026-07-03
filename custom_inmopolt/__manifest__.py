@@ -19,7 +19,6 @@
         'data/automatic_actions.xml',
         'data/server_actions.xml',
         'views/menu_views.xml',
-        'report/report_invoice.xml',
     ],
     'installable': True,
     'application': False,

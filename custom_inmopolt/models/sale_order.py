@@ -52,6 +52,8 @@ class SaleOrder(models.Model):
                 if not (sub.end_date) or (sub.end_date >= sub.next_invoice_date):
                     sub.order_line._reset_subscription_qty_to_invoice()
                     invoices = sub._create_invoices(final=True)
+                    # En Odoo 19 los diarios de tipo cash/bank generan out_receipt en vez de out_invoice:
+                    invoices.filtered(lambda m: m.move_type == 'out_receipt').write({'move_type': 'out_invoice'})
                     # Confirmar solo las facturas del diario de inquilinos; el resto quedan en borrador:
                     for invoice in invoices.filtered(lambda m: m.journal_id == diarioinquilinos and m.invoice_line_ids):
                         invoice.action_post()

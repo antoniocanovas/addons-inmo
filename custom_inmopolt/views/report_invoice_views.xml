@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <!-- Añade "Corresponde a: <invoice_origin>" antes del bloque de comentario -->
+    <record id="report_invoice_document_invoice_origin" model="ir.ui.view">
+        <field name="name">account.report_invoice_document.invoice_origin.inmopolt</field>
+        <field name="model"></field>
+        <field name="type">qweb</field>
+        <field name="inherit_id" ref="account.report_invoice_document"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='comment']" position="before">
+                <div t-if="o.invoice_origin">
+                    <strong>Corresponde a:</strong>
+                    <p t-field="o.invoice_origin"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Cambia la etiqueta de fecha a "Fecha Rectificativa" en los abonos -->
+    <record id="report_invoice_document_date_label" model="ir.ui.view">
+        <field name="name">account.report_invoice_document.date_label.inmopolt</field>
+        <field name="model"></field>
+        <field name="type">qweb</field>
+        <field name="inherit_id" ref="account.report_invoice_document"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='invoice_date']" position="replace">
+                <div class="col-auto mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
+                    <t t-if="o.move_type == 'out_invoice'"><strong>Fecha:</strong></t>
+                    <t t-elif="o.move_type == 'out_refund'"><strong>Fecha Rectificativa:</strong></t>
+                    <t t-else=""><strong>Fecha:</strong></t>
+                    <p class="m-0" t-field="o.invoice_date"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- No mostrar "Factura" ni "Factura de proveedor" en los recibos de inquilino/propietario -->
+    <record id="report_invoice_document_hide_title_recibos" model="ir.ui.view">
+        <field name="name">account.report_invoice_document.hide_title_recibos.inmopolt</field>
+        <field name="model"></field>
+        <field name="type">qweb</field>
+        <field name="inherit_id" ref="account.report_invoice_document"/>
+        <field name="arch" type="xml">
+            <xpath expr="//t[@name='invoice_title']/parent::span" position="attributes">
+                <attribute name="t-if">o.move_type == 'out_invoice' and o.state == 'posted' and o.journal_id.id not in (o.company_id.pnt_journal_propietario_id.id, o.company_id.pnt_journal_inquilino_id.id)</attribute>
+            </xpath>
+            <xpath expr="//t[@name='vendor_bill_title']/parent::span" position="attributes">
+                <attribute name="t-elif">o.move_type == 'in_invoice' and not o.journal_id.is_self_billing and o.journal_id.id not in (o.company_id.pnt_journal_propietario_id.id, o.company_id.pnt_journal_inquilino_id.id)</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -45,6 +45,12 @@
             <xpath expr="//t[@name='invoice_title']/parent::span" position="attributes">
                 <attribute name="t-if">o.move_type == 'out_invoice' and o.state == 'posted' and o.journal_id.id not in (o.company_id.pnt_journal_propietario_id.id, o.company_id.pnt_journal_inquilino_id.id)</attribute>
             </xpath>
+            <xpath expr="//t[@name='draft_invoice_title']/parent::span" position="attributes">
+                <attribute name="t-elif">o.move_type == 'out_invoice' and o.state == 'draft' and o.journal_id.id not in (o.company_id.pnt_journal_propietario_id.id, o.company_id.pnt_journal_inquilino_id.id)</attribute>
+            </xpath>
+            <xpath expr="//t[@name='cancelled_invoice_title']/parent::span" position="attributes">
+                <attribute name="t-elif">o.move_type == 'out_invoice' and o.state == 'cancel' and o.journal_id.id not in (o.company_id.pnt_journal_propietario_id.id, o.company_id.pnt_journal_inquilino_id.id)</attribute>
+            </xpath>
             <xpath expr="//t[@name='vendor_bill_title']/parent::span" position="attributes">
                 <attribute name="t-elif">o.move_type == 'in_invoice' and not o.journal_id.is_self_billing and o.journal_id.id not in (o.company_id.pnt_journal_propietario_id.id, o.company_id.pnt_journal_inquilino_id.id)</attribute>
             </xpath>

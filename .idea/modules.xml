@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/account_invoice_merge.iml" filepath="$PROJECT_DIR$/.idea/account_invoice_merge.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/addons-inmo.iml" filepath="$PROJECT_DIR$/.idea/addons-inmo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/auto_backup.iml" filepath="$PROJECT_DIR$/.idea/auto_backup.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/server_action_mass_edit.iml" filepath="$PROJECT_DIR$/.idea/server_action_mass_edit.iml" />
     </modules>
   </component>
 </project>
